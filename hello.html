@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="hu" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingyen mobilnet Skellytől</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Liquid Glass Base - Cool Dark Theme */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, 
+        #0a0e27 0%, 
+        #121a3a 25%, 
+        #0d1529 50%, 
+        #0f1a33 75%, 
+        #0a0e27 100%);
+      background-size: 400% 400%;
+      animation: gradient-shift 25s ease infinite;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Subtle Animated Blobs */
+    .blob {
+      position: fixed;
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      animation: morph 20s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      opacity: 0.08;
+    }
+
+    .blob-1 {
+      top: -10%;
+      right: -5%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #00d4ff 0%, transparent 70%);
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      bottom: -10%;
+      left: -5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #0099ff 0%, transparent 70%);
+      animation-delay: -7s;
+      animation-duration: 25s;
+    }
+
+    @keyframes morph {
+      0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg) scale(1); }
+      33% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(120deg) scale(1.05); }
+      66% { border-radius: 70% 30% 50% 50% / 40% 50% 60% 60%; transform: rotate(240deg) scale(0.95); }
+      100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(360deg) scale(1); }
+    }
+
+    /* Glass Cards - More opaque for readability */
+    .glass-card {
+      position: relative;
+      background: rgba(20, 25, 47, 0.7);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      border: 1px solid rgba(100, 180, 255, 0.15);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 48px rgba(0, 150, 255, 0.15);
+      border-color: rgba(100, 180, 255, 0.25);
+    }
+
+    /* Buttons - Cyan/Blue accent */
+    .glass-btn {
+      position: relative;
+      background: rgba(0, 180, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 200, 255, 0.2);
+      color: #e0f7ff;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .glass-btn:hover {
+      background: rgba(0, 200, 255, 0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(0, 150, 255, 0.2);
+      color: #ffffff;
+    }
+
+    .glass-btn:active {
+      transform: translateY(0);
+      background: rgba(0, 150, 255, 0.1);
+    }
+
+    .glass-btn.active {
+      background: rgba(0, 230, 200, 0.25);
+      border-color: rgba(0, 255, 200, 0.4);
+      color: #00ffd2;
+    }
+
+    .glass-btn.active:hover {
+      background: rgba(0, 255, 200, 0.35);
+    }
+
+    /* Dropdown Glass */
+    .glass-dropdown {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(100, 180, 255, 0.2);
+      border-radius: 16px;
+      margin-top: 12px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Text styles for readability */
+    h1, h2, h3, h4 {
+      color: #f0f9ff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    p, li {
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    strong {
+      color: #e0f2fe;
+    }
+
+    code {
+      background: rgba(0, 0, 0, 0.4) !important;
+      border: 1px solid rgba(100, 180, 255, 0.2);
+      color: #7dd3fc;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Content positioning */
+    main {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Fallback */
+    @supports not (backdrop-filter: blur(1px)) {
+      .glass-card, .glass-btn, .glass-dropdown {
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(100, 180, 255, 0.3);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <main class="flex items-center justify-center py-12">
+    <div class="max-w-3xl w-full space-y-8">
+      
+      <!-- Tartalomjegyzék -->
+      <div class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5">Tartalomjegyzék</h2>
+        <ul class="space-y-3">
+          <li><button onclick="scrollToSection('zero-rated')" class="glass-btn w-full text-left px-5 py-3 rounded-xl"><span class="mr-3 text-cyan-400">1.</span> Zero Rated oldal keresése</button></li>
+          <li><button onclick="scrollToSection('vmess-server')" class="glass-btn w-full text-left px-5 py-3 rounded-xl"><span class="mr-3 text-cyan-400">2.</span> V2Ray vagy SSH szerver beszerzése</button></li>
+          <li><button onclick="scrollToSection('apps')" class="glass-btn w-full text-left px-5 py-3 rounded-xl"><span class="mr-3 text-cyan-400">3.</span> Szükséges alkalmazások</button></li>
+          <li><button onclick="scrollToSection('settings')" class="glass-btn w-full text-left px-5 py-3 rounded-xl"><span class="mr-3 text-cyan-400">4.</span> Beállítások</button></li>
+          <li><button onclick="scrollToSection('connection')" class="glass-btn w-full text-left px-5 py-3 rounded-xl"><span class="mr-3 text-cyan-400">5.</span> Csatlakozás</button></li>
+          <li><button onclick="scrollToSection('hotspot')" class="glass-btn w-full text-left px-5 py-3 rounded-xl"><span class="mr-3 text-cyan-400">6.</span> Hotspot megosztás</button></li>
+          <li><button onclick="scrollToSection('troubleshooting')" class="glass-btn w-full text-left px-5 py-3 rounded-xl"><span class="mr-3 text-cyan-400">7.</span> Hibaelhárítás</button></li>
+        </ul>
+      </div>
+
+      <!-- Fontos tudnivalók -->
+      <div class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5 text-red-400">⚠️ Fontos tudnivalók</h2>
+        <ul class="list-disc list-inside space-y-3 pl-2">
+          <li>Kevés, de <strong class="text-red-300">megvan az esély hogy lekorlátozzák vagy letiltják a SIM kártyádat</strong></li>
+          <li>Csak <strong class="text-red-300">saját felelősségre</strong> használd, vagy olyan SIM kártyával amit nem sajnálsz</li>
+          <li>A leírtak <strong class="text-teal-300">kizárólag oktatási célból</strong> lettek megosztva</li>
+          <li>Az alábbiakban leírt módszer nagy valószínűséggel a SIM szolgáltatód <strong class="text-red-300">ÁSZF-e ellen van</strong></li>
+          <li>Ha a telefonod támogatja a <strong class="text-blue-300">Dual SIM-et</strong>, akkor tudod a fő SIM kártyád mellett ezt használni</li>
+          <li>A SIM aktiválásához <strong class="text-blue-300">minimum 14 éves életkor szükséges, illetve csak feltöltő kártyás SIM-mel működik</strong></li>
+        </ul>
+      </div>
+
+      <!-- Zero Rated -->
+      <div id="zero-rated" class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5 text-blue-400">Első lépés: Zero Rated oldal keresése</h2>
+        <p class="mb-3">Először is mielőtt elkezdenéd, kell keresned egy <strong class="text-blue-300">"zero rated" oldalt</strong>. Ez azt jelenti hogy a SIM szolgáltatód megengedi hogy felmenj egy megadott oldalra mobilnet nélkül is.</p>
+        <p class="mb-4">A szolgáltatók általában megengedik, hogy a saját oldalukra felmenj úgy is ha elfogyott a mobilneted. Például:</p>
+        <div class="glass-card p-4 mb-4">
+          <ul class="list-disc list-inside space-y-2">
+            <li><strong>Yettel:</strong> <code class="px-2 py-1 rounded">yettel.hu</code>, <code class="px-2 py-1 rounded">speedtest.net</code>, <code class="px-2 py-1 rounded">fast.com</code></li>
+            <li><strong>Telekom és One:</strong> Sajnos nem működik</li>
+          </ul>
+        </div>
+        <div class="glass-card p-4">
+          <p class="text-teal-300">⚠️ Ez előfizetéses kártya illetve Yettel Yepp nem fog menni tehát mindenképp kell egy feltöltőkártyás SIM. Ne aggódj, nem kell feltöltened rá pénzt csak szimplán aktiválnod kell és ha lejár akkor veszel egy új kártyát. Van esély, hogy feltöltő kártyával se működik, ez személyfüggő.</p>
+        </div>
+      </div>
+
+      <!-- Szerver beszerzése -->
+      <div id="vmess-server" class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5 text-cyan-400">Szerver beszerzése</h2>
+        <div class="flex gap-3 mb-5">
+          <button id="btn-v2ray" onclick="setServerType('v2ray')" class="glass-btn active px-6 py-3 rounded-xl font-semibold">V2Ray VMESS</button>
+          <button id="btn-ssh" onclick="setServerType('ssh')" class="glass-btn px-6 py-3 rounded-xl font-semibold">SSH Szerver</button>
+        </div>
+        <div id="v2ray-content">
+          <p class="mb-3">Ha sikerült találnod egy zero rated oldalt, akkor szerezz egy V2Ray VMESS szervert.</p>
+          <ol class="list-disc list-inside space-y-2 pl-2 my-3">
+            <li>Az egyszerűség kedvéért itt vannak oldalak, ahol ingyen tudsz szervert generálni:</li>
+            <ul class="list-disc list-inside pl-6 text-cyan-400 mt-1 space-y-1">
+              <li><a href="https://sshs8.com/" class="text-cyan-400 underline">sshs8.com</a></li>
+              <li><a href="https://www.vpnjantit.com/free-v2ray-vmess" class="text-cyan-400 underline">vpnjantit.com</a> (itt tudsz venni olcsón szervert)</li>
+            </ul>
+            <li>Válassz lehetőleg egy közel lévő szervert (pl. Németország)</li>
+            <li>Írj be egy random jelszót (ha kér), majd kattints a "Create an Account"-ra</li>
+            <li>Ha van link amit ki tudsz másolni, akkor azzal másold át az alkalmazásba, ha nincs akkor manuálisan csináld meg</li>
+          </ol>
+          <div class="glass-card p-4 mt-4">
+            <p class="text-cyan-300">💡 Ez egy komplett link, amivel nem kell egyesével kimásolnod az adatokat, csak beilleszted az appba.</p>
+          </div>
+        </div>
+        <div id="ssh-content" class="hidden">
+          <p class="mb-3">Az SSH egy másik fajta szerver, amire HTTP Injector appal rá tudsz csatlakozni. Ez lehet hogy biztonságosabb, bár itt meglehet hogy nem megy minden alkalmazás/oldal vele.</p>
+          <p class="mb-2">Szintén ugyan ezen az oldalakon tudsz SSH szervert is generálni:</p>
+          <ul class="list-disc list-inside pl-6 my-3">
+            <li><a href="https://sshs8.com/" class="text-cyan-400 underline">sshs8.com</a></li>
+            <li><a href="https://www.vpnjantit.com" class="text-cyan-400 underline">vpnjantit.com</a></li>
+          </ul>
+          <div class="glass-card p-4 mt-4">
+            <p class="text-cyan-300">💡 Az SSH szervernél szükséged lesz: <code>host</code>, <code>port</code>, <code>felhasználónév</code>, <code>jelszó</code>. Ezeket a legtöbb generátor megadja automatikusan.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alkalmazások -->
+      <div id="apps" class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5 text-purple-400">Szükséges alkalmazások</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="glass-card p-4">
+            <h3 class="font-semibold text-lg mb-2">Android (V2Ray)</h3>
+            <a href="https://play.google.com/store/apps/details?id=com.github.v2raygg" class="text-cyan-400 underline">v2rayGG</a>
+          </div>
+          <div class="glass-card p-4">
+            <h3 class="font-semibent text-lg mb-2">iOS (V2Ray+SSH)</h3>
+            <a href="https://apps.apple.com/us/app/npv-tunnel/id1629465476" class="text-cyan-400 underline">Npv Tunnel</a>
+          </div>
+          <div class="glass-card p-4">
+            <h3 class="font-semibold text-lg mb-2">Android (SSH)</h3>
+            <a href="https://play.google.com/store/apps/details?id=com.evozi.injector" class="text-cyan-400 underline">HTTP Injector</a>
+          </div>
+          <div class="glass-card p-4">
+            <h3 class="font-semibold text-lg mb-2">iOS (SSH)</h3>
+            <a href="https://apps.apple.com/us/app/http-injector/id1659992827" class="text-cyan-400 underline">HTTP Injector</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beállítások -->
+      <div id="settings" class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5 text-yellow-400">Beállítások</h2>
+        <div class="mb-5">
+          <h3 class="font-semibold text-lg mb-3">V2Ray alapbeállítás</h3>
+          <ol class="list-decimal list-inside space-y-2 pl-2">
+            <li><strong>Android:</strong> Nyomd meg a "+" gombot → "Import config from clipboard"</li>
+            <li><strong>iOS:</strong> Nyomd meg a "+" gombot → "Import v2ray URI from clipboard"</li>
+            <li>Ha megjelent az új szerver a listán, nyomj rá a szerkesztés gombra</li>
+            <li>Keresd meg a <code class="px-2 py-1 rounded">ws host</code> mezőt (iOS-en: <code class="px-2 py-1 rounded">Request Host</code>)</li>
+            <li>Ide írd be a zero rated oldalt, pl. <code class="px-2 py-1 rounded">www.yettel.hu</code></li>
+          </ol>
+        </div>
+
+        <div class="pt-5 border-t border-gray-700">
+          <h3 class="font-semibold text-lg mb-3">SSH + TLS/SSL Stunnel beállítás HTTP Injectorban</h3>
+          <ol class="list-decimal list-inside space-y-2 pl-2">
+            <li>Nyisd meg a <strong>HTTP Injector</strong> appot</li>
+            <li>Menj az <strong>Settings</strong> → <strong>SSH</strong> részhez</li>
+            <li>Add meg az SSH szerver adatait:
+              <ul class="list-disc list-inside pl-6 mt-2 space-y-1">
+                <li><code class="px-2 py-1 rounded">Host</code>: Itt lehetőleg az IP verzióját másold be</li>
+                <li><code class="px-2 py-1 rounded">Port</code>: SSH port (általában 22 vagy 443), ssh8.com-nál használd a 445 portot</li>
+                <li><code class="px-2 py-1 rounded">Username</code>: felhasználónév</li>
+                <li><code class="px-2 py-1 rounded">Password</code>: jelszó</li>
+              </ul>
+            </li>
+            <li>Menj vissza a főoldalra</li>
+            <li>Nyomj rá a start alatti gombra és válaszd ki SSH és TLS/SSL (Stunnel), majd nyomj a mentés gombra</li>
+            <li>Az alatti mezőbe írd be a Zero Rated oldalt, pl. "www.yettel.hu"</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Csatlakozás -->
+      <div id="connection" class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5 text-blue-400">Csatlakozás</h2>
+        <p class="mb-4">Már csak annyit kell csinálnod, hogy rácsatlakozol a szerverre mobilnetről:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="glass-card p-4">
+            <h3 class="font-semibold text-lg mb-2">Android</h3>
+            <p>Válaszd ki a szervert, majd nyomd meg a <strong>Start</strong> gombot</p>
+          </div>
+          <div class="glass-card p-4">
+            <h3 class="font-semibold text-lg mb-2">iOS</h3>
+            <p>Válaszd ki a szervert, majd húzd jobbra a <strong>Slide to Connect</strong> csúszkát</p>
+          </div>
+        </div>
+        <div class="glass-card p-4 mt-5">
+          <p class="text-cyan-300">💡 Az SSH + Stunnel kapcsolat valamelyest lassabb lehet, de kevesebb az esély hogy az internet/sim szolgáltatód tiltja.</p>
+        </div>
+      </div>
+
+      <!-- Hotspot megosztás -->
+      <div id="hotspot" class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5 text-green-400">Hotspot megosztás</h2>
+        <div class="mb-5">
+          <h3 class="font-semibold text-lg mb-3 text-teal-300">Megosztás csak böngészéshez (TCP)</h3>
+          <p class="mb-3">Ha úgy akarsz netet osztani, hogy a másik eszközre ne kelljen appot letölteni, akkor a hoszt telefonról a <strong>HTTP Injector</strong> appot kell használnod és azon keresztül proxyval osztani hotspotot.</p>
+          <div class="glass-card p-4">
+            <p class="text-teal-300 mb-2">⚠️ Korlátozások:</p>
+            <p>Ilyenkor csak a TCP fog menni és az UDP nem, így például böngésző működik, de online játék nem.</p>
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <h3 class="font-semibold text-lg mb-3 text-teal-300">Teljes megosztás (TCP + UDP)</h3>
+          <p class="mb-2">Ha azt szeretnéd, hogy a másik eszközön is menjen az UDP és TCP forgalom:</p>
+          <ol class="list-decimal list-inside space-y-2 pl-2">
+            <li>Telepíts egy hasonló appot a másik eszközre is</li>
+            <li>Csatlakozz másik (v2ray vagy ssh) szerverhez az appon keresztül, mint a hoszt</li>
+            <li>Mindkét eszközön kapcsolódj szerverre</li>
+          </ol>
+        </div>
+
+        <div class="glass-card p-5">
+          <h3 class="font-semibold text-lg mb-4 text-blue-400">HTTP Injector részletes beállítása:</h3>
+          <ol class="list-decimal list-inside space-y-2 pl-2">
+            <li>Töltsd le a HTTP Injector appot mindkét eszközre (Android/iOS)</li>
+            <li>Menj a Beállítások → V2Ray/Xray vagy SSH + Stunnel protokollba</li>
+            <li>Felül nyomj a + ikonra, és másold be a szerver linkjét vagy adatait</li>
+            <li>V2Ray esetén a Core legyen V2Ray-re állítva (ne Xray)</li>
+            <li>Mentés után a Tools menübe lesz egy Hotshare opció (csak androidon)</li>
+          </ol>
+          <div class="glass-card p-3 mt-4">
+            <p class="text-cyan-300">💡 A Hotshare megfelel mivel a legtöbb embernek nincs rootolva a telefonja</p>
+          </div>
+          <p class="mt-4">Az app mutatni fogja mit kell csinálnod (EZ CSAK ANDROID HOTSPOT HOSZTON)</p>
+          <ol class="list-decimal list-inside space-y-2 pl-2 mt-3">
+            <li>Állítsd be a hotspot jelszavát</li>
+            <li>Nyomd meg a "Start Wi-Fi Hotspot" gombot</li>
+            <li>Pipáld be a "HTTP" opciót</li>
+            <li>Nyomd meg a "START HOTSHARE" gombot</li>
+          </ol>
+          <div class="glass-card p-4 mt-4">
+            <h4 class="font-semibold mb-2 underline">A másik eszközön:</h4>
+            <ol class="list-decimal list-inside space-y-2 pl-2">
+              <li>Csatlakozz a megosztott hotspothoz</li>
+              <li>Állíts proxy-t manuálisan (Android/iOS wifi beállításoknál)</li>
+              <li>Proxy beállítások:
+                <ul class="list-disc list-inside pl-4 space-y-1 mt-1">
+                  <li>Szerver: <code class="px-2 py-1 rounded">192.168.0.54</code> (vagy amit a host mutat)</li>
+                  <li>Port: <code class="px-2 py-1 rounded">44355</code> (vagy amit a host mutat)</li>
+                  <li>A többi mezőt hagyd üresen</li>
+                </ul>
+              </li>
+              <li>Mentsd el, majd csatlakozz újra a hálózatra</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hibaelhárítás -->
+      <div id="troubleshooting" class="glass-card p-6">
+        <h2 class="text-3xl font-semibold mb-5 text-red-400">Hibaelhárítás</h2>
+        <div class="space-y-3">
+          <div class="glass-btn p-4 rounded-xl cursor-pointer" onclick="toggleTroubleshooting('tls')">
+            <div class="flex justify-between items-center">
+              <span class="font-semibold text-lg">TLS/SSL probléma</span>
+              <span id="tls-arrow" class="text-xl text-cyan-400">▶</span>
+            </div>
+            <div id="tls-content" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <p class="mb-2">Lesznek olyan oldalak, amik nem adnak "No TLS" linket, tehát amikor beilleszted a linket és szerkeszted, akkor alul a TLS be lesz nyomva.</p>
+              <p class="font-semibold mb-2 text-cyan-300">Megoldás V2Ray esetén:</p>
+              <ol class="list-decimal list-inside pl-2 space-y-1">
+                <li>Keresd meg az <code>allowInsecure</code> opciót</li>
+                <li>Állítsd át <code>true</code>-ra</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="glass-btn p-4 rounded-xl cursor-pointer" onclick="toggleTroubleshooting('noconnection')">
+            <div class="flex justify-between items-center">
+              <span class="font-semibold text-lg">Nem megy a net</span>
+              <span id="noconnection-arrow" class="text-xl text-cyan-400">▶</span>
+            </div>
+            <div id="noconnection-content" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <p class="mb-2">Ha nem tud csatlakozni a szerverhez, próbáld meg:</p>
+              <ol class="list-decimal list-inside pl-2 space-y-1">
+                <li>Be majd ki kapcsolni a repülőgépes üzemmódot</li>
+                <li>Újraindítani az appot</li>
+                <li>Másik szervert kipróbálni</li>
+                <li>Ellenőrizd hogy biztosan jó SIMet választottál ki mobilnethez</li>
+                <li>Az ingyenes szerver generátorok általába csak 1 hetes szervereket adnak</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="glass-btn p-4 rounded-xl cursor-pointer" onclick="toggleTroubleshooting('partialfail')">
+            <div class="flex justify-between items-center">
+              <span class="font-semibold text-lg">Nem működő oldalak/alkalmazások</span>
+              <span id="partialfail-arrow" class="text-xl text-cyan-400">▶</span>
+            </div>
+            <div id="partialfail-content" class="hidden mt-4 pt-4 border-t border-gray-700">
+              <p>Egy szerveren keresztül csatlakozol a netre ezért ez olyan, mint egy VPN. Amilyen szervert generáltál az oldalon olyan IP címed lesz. Példáúl ha az e-krétára próbálsz belépni német IP címmel akkor ez nem fog menni mivel a kréta tiltja a külföldi címeket</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center pt-6">
+        <p class="text-cyan-400">Útmutatót írta, illetve oldalt készítette: <a href="https://skelly.hu" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-white transition-colors font-semibold">Skelly</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Dark mode
+    document.documentElement.classList.add('dark');
+
+    // Smooth scroll
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Server type toggle
+    function setServerType(type) {
+      const v2rayBtn = document.getElementById('btn-v2ray');
+      const sshBtn = document.getElementById('btn-ssh');
+      const v2rayContent = document.getElementById('v2ray-content');
+      const sshContent = document.getElementById('ssh-content');
+
+      if (type === 'v2ray') {
+        v2rayBtn.classList.add('active');
+        sshBtn.classList.remove('active');
+        v2rayContent.classList.remove('hidden');
+        sshContent.classList.add('hidden');
+      } else {
+        sshBtn.classList.add('active');
+        v2rayBtn.classList.remove('active');
+        sshContent.classList.remove('hidden');
+        v2rayContent.classList.add('hidden');
+      }
+    }
+
+    // Troubleshooting toggle
+    function toggleTroubleshooting(id) {
+      const content = document.getElementById(id + '-content');
+      const arrow = document.getElementById(id + '-arrow');
+      
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        arrow.textContent = '▼';
+      } else {
+        content.classList.add('hidden');
+        arrow.textContent = '▶';
+      }
+    }
+  </script>
+</body>
+</html>
